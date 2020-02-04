@@ -1,0 +1,62 @@
+<div class="abrir-mdal animacion fadeIn" *ngIf="modalService.modal">
+    <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> {{titulo}}</h5>
+                    <button type="button" class="close" (click)="cerrarModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <ul class="list-group text-dark mb-5" *ngIf="cliente">
+                                    <li class="list-group-item active">{{cliente.nombre}}</li>
+                                    <li class="list-group-item">{{cliente.apellido}}</li>
+                                    <li class="list-group-item">{{cliente.email}}</li>
+                                    <li class="list-group-item">{{cliente.createAt | date:"fulldate"}}</li>
+                                    <li class="list-group-item">{{cliente.region.nombre}}</li>
+                                </ul>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input"
+                                            id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                        <label class="custom-file-label" for="inputGroupFile04">Subir foto</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-info" (click)="subirFoto()" type="button"
+                                            id="inputGroupFileAddon04">Subir</button>
+                                    </div>
+                                </div>
+
+                                <div class="progress" *ngIf="progreso > 0">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                                        [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}"
+                                        aria-valuemin="0" aria-valuemax="100">
+                                        {{progreso}}%
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm">
+                                <img class="img-thumbnail rounded"
+                                    src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" *ngIf="cliente?.foto"
+                                    alt="{{cliente.foto}}">
+
+                                    <img class="img-thumbnail rounded"
+                                    src="http://localhost:8080/images/no-usuario.png" *ngIf="!cliente?.foto"
+                                    alt="{{cliente.foto}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        (click)="cerrarModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
